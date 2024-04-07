@@ -9,7 +9,7 @@ const SubmissionPage = () => {
   return (
     <div className='submissions'>
       <img className="background-img" src={BackgroundImg.src}  alt="Cusisnapped Background Image" />
-      <div className="px-4 py-5 h-2/5 w-1/5 bg-white bg-opacity-80 border-solid rounded-md">
+      <div className="md:px-4 md:py-5 p-2 h-2/5 lg:mx-auto mx-2 lg:w-1/5 w-fit bg-white bg-opacity-80 border-solid rounded-md">
         <h1>Submission confirmed!</h1>
         <p className='mt-2'>
           Thank you for subscribing!
