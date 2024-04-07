@@ -5,10 +5,12 @@ import { UserDTO } from "@/pages/api/users";
 import { InlineAlert } from "./InlineAlert";
 
 export interface SignInProps {
-    onSubmit: (data: Partial<UserDTO>) => void;
+    apiError?: {[key: string]: any};
+    onSubmit?: (data: Partial<UserDTO>) => void;
 }
 
-const SignIn = ({ 
+const SignIn = ({
+    apiError = {},
     onSubmit,
 }: SignInProps) => {
     const [isAdmin, setIsAdmin] = useState<boolean>(false);
@@ -51,6 +53,12 @@ const SignIn = ({
                             {errors.email && errors.email.type === "maxLength" && !hiddenAlerts.email && (
                                 <InlineAlert message="Email is too long!" onClick={() => setHiddenAlerts({...hiddenAlerts, email: true })} />
                             )}
+                            {apiError.unique && !hiddenAlerts.email && (
+                                <InlineAlert message="Email is already in use!" onClick={() => setHiddenAlerts({...hiddenAlerts, email: true })} />
+                            )}
+                            {apiError.unknown && !hiddenAlerts.email && (
+                                <InlineAlert message="Unknown error. Try again later.." onClick={() => setHiddenAlerts({...hiddenAlerts, email: true })} />
+                            )}
                         </div>
                     </div>
 
@@ -91,6 +99,9 @@ const SignIn = ({
     )
 
     function submitUser(data: Partial<UserDTO>) {
+        if(typeof onSubmit !== 'function') return;
+
+        setHiddenAlerts({ ...hiddenAlerts, email: false });
         onSubmit(data);
     }
 }

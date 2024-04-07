@@ -76,6 +76,9 @@ try {
     return results && res.status(201).json({ id: results.id });
 } catch (error: any) {
     console.error({error});
+    if(error.name === 'PrismaClientKnownRequestError') {
+      return res.status(409).send({error});
+    }
     return res.status(error?.response?.status ?? 500).send({error});
 }
 };
