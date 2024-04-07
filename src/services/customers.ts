@@ -2,8 +2,7 @@ import { axiosInstance } from './constants';
 
 import type { CustomerDTO } from '@/pages/api/customers';
 
-const apiUrl = `${process.env.NEXT_PUBLIC_VERCEL_URL}/api`
-const baseUrl = `${apiUrl}/customers`;
+const baseUrl = `/api/customers`;
 
 const CustomerService = {
   getAll,

@@ -3,8 +3,7 @@ import { axiosInstance } from './constants';
 
 import type { UserDTO } from '@/pages/api/users';
 
-const apiUrl = `${process.env.NEXT_PUBLIC_VERCEL_URL}/api`
-const baseUrl = `${apiUrl}/users`;
+const baseUrl = `/api/users`;
 
 const UserService = {
   login,
