@@ -7,7 +7,10 @@ const nextConfig = {
   },
   publicRuntimeConfig: {
     apiUrl: `http${process.env.NEXT_PUBLIC_NODE_ENV === 'local' ? '' : 's'}://${process.env.NEXT_PUBLIC_VERCEL_URL}/api`
-  }
+  },
+  images: {
+    unoptimized: true,
+  },
 };
 
 export default nextConfig;
