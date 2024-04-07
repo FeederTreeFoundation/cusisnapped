@@ -191,6 +191,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -201,7 +202,7 @@ const config = {
   },
   "inlineSchema": "generator client {\r\n  provider = \"prisma-client-js\"\r\n  output   = \"./generated/client\"\r\n}\r\n\r\ndatasource db {\r\n  provider = \"postgresql\"\r\n  url      = env(\"DATABASE_URL\")\r\n  directUrl = env(\"DIRECT_DATABASE_URL\")\r\n}\r\n\r\nmodel User {\r\n  id    Int     @id @default(autoincrement())\r\n  email String  @unique\r\n  password String? @db.Char(60)\r\n  name  String?\r\n  role  String?\r\n}\r\n\r\nmodel Customer {\r\n  id    Int     @id @default(autoincrement())\r\n  email String  @unique\r\n  phone String?\r\n  contactPreference String?\r\n  firstName  String?\r\n  lastName  String?\r\n  addresses Address[]\r\n  orders Order[]\r\n}\r\n\r\nmodel Address {\r\n  id    Int     @id @default(autoincrement())\r\n  street String\r\n  city String\r\n  state String\r\n  zip String\r\n  customers Customer[]\r\n}\r\n\r\nmodel Order {\r\n  id    Int     @id @default(autoincrement())\r\n  orderDate DateTime\r\n  orderNumber String\r\n  customerId Int\r\n  customer Customer @relation(fields: [customerId], references: [id])\r\n  products Product[]\r\n}\r\n\r\nmodel Product {\r\n  id    Int     @id @default(autoincrement())\r\n  name String\r\n  price Float\r\n  description String?\r\n  image String?\r\n  category String?\r\n  quantity Int\r\n  order Order[]\r\n}\r\n\r\n\r\n",
   "inlineSchemaHash": "84cdd4dc187728da1d7581ecde6b080b7a2e207a65fa54b73e660e075afd51a9",
-  "copyEngine": true
+  "copyEngine": false
 }
 
 const fs = require('fs')
@@ -237,9 +238,3 @@ const PrismaClient = getPrismaClient(config)
 exports.PrismaClient = PrismaClient
 Object.assign(exports, Prisma)
 
-// file annotations for bundling tools to include these files
-path.join(__dirname, "query_engine-windows.dll.node");
-path.join(process.cwd(), "prisma/generated/client/query_engine-windows.dll.node")
-// file annotations for bundling tools to include these files
-path.join(__dirname, "schema.prisma");
-path.join(process.cwd(), "prisma/generated/client/schema.prisma")

@@ -37,4 +37,12 @@ body {
   position: fixed;
   top: 0;
   bottom: 0;
+  height: 100vh;
+}
+
+.submissions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }

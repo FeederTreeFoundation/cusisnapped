@@ -3,22 +3,36 @@ import BackgroundImg from '@/public/assets/cusisnappedBackgroundPage.jpeg';
 
 const SubmissionPage = () => {
     // fetch id from query
-  const { query } = useRouter();
-  const { customerId } = query;
+  const router = useRouter();
+  const { customerId } = router.query;
 
   return (
-    <div>
-      <img className="background-img" src={BackgroundImg.src}  alt="cusisnapped Background mage" />
-      <h1>Submission confirmed!</h1>
-      <p>{`
-        Thank you for subscribing!\n
-        When the full site is up, 
-        you'll be notified by email to sign up
-         to order your very own Cusisnapped art piece!
-         Stay tuned!!\n\n
+    <div className='submissions'>
+      <img className="background-img" src={BackgroundImg.src}  alt="Cusisnapped Background Image" />
+      <div className="px-4 py-5 h-2/5 w-1/5 bg-white bg-opacity-80 border-solid rounded-md">
+        <h1>Submission confirmed!</h1>
+        <p className='mt-2'>
+          Thank you for subscribing!
+          When the full site is up, 
+          you'll be notified by email to sign up
+          to order your very own Cusisnapped art piece!
+          Stay tuned!!
+          <br />
+          <br />
 
-        Until then, keep your raffle number (${customerId})
-        to see if today will be that day!`}</p>
+          Until then, keep your raffle number
+          <strong>
+            {` (${customerId}) `}
+          </strong>
+          to see if today will be that day!
+        </p>
+        <button
+            onClick={() => router.push('/')}
+            className="flex w-1/2 m-auto mt-4 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        >
+            Done
+        </button>
+      </div>
     </div>
   );
 }

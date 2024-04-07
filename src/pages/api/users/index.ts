@@ -1,11 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { prisma } from "@/db/utils"; 
-// import { PrismaClient } from '../../../../prisma/generated/client/edge'
-// import { withAccelerate } from '@prisma/extension-accelerate'
 
-// const prisma = new PrismaClient({
-//     datasources: { db: { url: process.env.DATABASE_URL } },
-// }).$extends(withAccelerate())
+import { UserRole } from "@/db/models";
+import { prisma } from "@/db/utils";
 
 export interface UserDTO {
     id?: number;
@@ -59,12 +55,10 @@ const getAllUsers = async (res: NextApiResponse, opts?: any ) => {
         },
         cacheStrategy: { swr: 60, ttl: 60 },
     });
-
-    console.log({ users });
-    
     return res.json(users);
-  } catch (error) {
-    return res.json({error});
+  } catch (error: any) {
+    console.error({error});
+    return res.status(error?.response?.status ?? 500).json({error});
   }
 };
 
@@ -81,8 +75,9 @@ const createUser = async (body: Partial<UserDTO>, res: NextApiResponse) => {
       data: user,
     });
     return results && res.status(201).setHeader('Location', `/users/${results.id}`);
-  } catch (error) {
-    return res.json({error});
+  } catch (error: any) {
+    console.error({error});
+    return res.status(error?.response?.status ?? 500).json({error});
   }
 };
 
@@ -95,9 +90,9 @@ const bulkDeleteUsers = async (ids: string[], res: NextApiResponse) => {
     });
 
     return res.json({ results });
-  } catch (error) {
+  } catch (error: any) {
     console.error({error});
-    throw error;
+    return res.status(error?.response?.status ?? 500).json({error});
   }
 };
 

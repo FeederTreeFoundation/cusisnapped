@@ -36,10 +36,9 @@ const getUserById = async (id: string, res: NextApiResponse) => {
     }
 
     return res.json({ ...user });
-  }
-  catch (error) { 
+  } catch (error: any) {
     console.error({error});
-    throw error;
+    return res.status(error?.response?.status ?? 500).json({error});
   }
 };
 
@@ -60,8 +59,9 @@ const updateUserById = async (body: any, res: NextApiResponse) => {
       }
     
       return res.json(result);
-    } catch (error) {
-      return res.json({error});
+    } catch (error: any) {
+      console.error({error});
+      return res.status(error?.response?.status ?? 500).json({error});
     }
   };
   
@@ -79,8 +79,9 @@ const updateUserById = async (body: any, res: NextApiResponse) => {
       }
     
       return res.send('Successfully deleted user with id: ' + id);
-    } catch (error) {
-      return res.status(400).json({error});
+    } catch (error: any) {
+      console.error({error});
+      return res.status(error?.response?.status ?? 500).json({error});
     }
   };
   
