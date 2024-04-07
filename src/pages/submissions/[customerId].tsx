@@ -14,7 +14,7 @@ const SubmissionPage = () => {
         <p className='mt-2'>
           Thank you for subscribing!
           When the full site is up, 
-          you'll be notified by email to sign up
+          you&apos;ll be notified by email to sign up
           to order your very own Cusisnapped art piece!
           Stay tuned!!
           <br />
