@@ -20,8 +20,6 @@ const SignIn = ({
         formState: { errors },
     } = useForm<UserDTO>()
 
-    console.log({hiddenAlerts});
-    
     return (
         <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8  bg-white border-solid rounded-md">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
